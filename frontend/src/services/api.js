@@ -1,14 +1,16 @@
-import { supabase } from './supabase.js';
-
 const API_BASE = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
 
 async function authHeaders(body) {
   const headers = body ? { 'Content-Type': 'application/json' } : {};
-  if (supabase) {
+  try {
+    const { supabase } = await import('./supabase.js');
+    if (!supabase) return headers;
     const { data } = await supabase.auth.getSession();
     if (data.session?.access_token) {
       headers.Authorization = `Bearer ${data.session.access_token}`;
     }
+  } catch {
+    // Public API requests remain available if optional Supabase auth cannot load.
   }
   return headers;
 }
@@ -62,11 +64,16 @@ export const api = {
     const form = new FormData();
     form.append('audio', file);
     const headers = {};
-    if (supabase) {
-      const { data } = await supabase.auth.getSession();
-      if (data.session?.access_token) {
-        headers.Authorization = `Bearer ${data.session.access_token}`;
+    try {
+      const { supabase } = await import('./supabase.js');
+      if (supabase) {
+        const { data } = await supabase.auth.getSession();
+        if (data.session?.access_token) {
+          headers.Authorization = `Bearer ${data.session.access_token}`;
+        }
       }
+    } catch {
+      // Optional authentication must not block public audio transcription.
     }
 
     let response;

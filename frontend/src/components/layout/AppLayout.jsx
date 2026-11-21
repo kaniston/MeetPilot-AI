@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { RefreshCw, TriangleAlert } from 'lucide-react';
 import Sidebar from './Sidebar.jsx';
 import Topbar from './Topbar.jsx';
+import LoadingState from '../ui/LoadingState.jsx';
 import { useWorkspace } from '../../context/WorkspaceContext.jsx';
 
 export default function AppLayout() {
@@ -46,7 +47,15 @@ export default function AppLayout() {
         ) : null}
 
         <main className="page">
-          <Outlet />
+          <Suspense
+            fallback={
+              <div className="route-loading">
+                <LoadingState label="Loading MeetPilot…" />
+              </div>
+            }
+          >
+            <Outlet />
+          </Suspense>
         </main>
       </div>
     </div>

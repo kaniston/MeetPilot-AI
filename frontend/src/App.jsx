@@ -1,15 +1,16 @@
+import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AppLayout from './components/layout/AppLayout.jsx';
 import { WorkspaceProvider } from './context/WorkspaceContext.jsx';
-import Dashboard from './pages/Dashboard.jsx';
-import Meetings from './pages/Meetings.jsx';
-import NewMeeting from './pages/NewMeeting.jsx';
-import MeetingReport from './pages/MeetingReport.jsx';
-import Decisions from './pages/Decisions.jsx';
-import Tasks from './pages/Tasks.jsx';
-import Assistant from './pages/Assistant.jsx';
-import Settings from './pages/Settings.jsx';
-import NotFound from './pages/NotFound.jsx';
+const Dashboard = lazy(() => import('./pages/Dashboard.jsx'));
+const Meetings = lazy(() => import('./pages/Meetings.jsx'));
+const NewMeeting = lazy(() => import('./pages/NewMeeting.jsx'));
+const MeetingReport = lazy(() => import('./pages/MeetingReport.jsx'));
+const Decisions = lazy(() => import('./pages/Decisions.jsx'));
+const Tasks = lazy(() => import('./pages/Tasks.jsx'));
+const Assistant = lazy(() => import('./pages/Assistant.jsx'));
+const Settings = lazy(() => import('./pages/Settings.jsx'));
+const NotFound = lazy(() => import('./pages/NotFound.jsx'));
 
 export default function App() {
   return (

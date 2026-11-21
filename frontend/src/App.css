@@ -1376,6 +1376,12 @@
   padding: 24px;
 }
 
+.route-loading {
+  min-height: calc(100vh - var(--topbar-height));
+  display: grid;
+  place-items: start center;
+}
+
 /* --------------------------------------------------------------------------
    Toolbars, search, filters
    -------------------------------------------------------------------------- */
