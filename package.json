@@ -1,0 +1,14 @@
+{
+  "name": "meetpilot-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MeetPilot AI - From Conversations to Decisions. From Decisions to Action.",
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "install:all": "npm install && npm --prefix backend install && npm --prefix frontend install",
+    "build": "npm --prefix frontend run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
